@@ -1,0 +1,142 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Areas/Identity/Pages/_AuthLayout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+
+<form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+    <h2>Create a new account.</h2>
+    <hr />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-floating">
+        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+        <label asp-for="Input.Email"></label>
+        <span asp-validation-for="Input.Email" class="text-danger"></span>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-floating">
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.Password"></label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-floating">
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.ConfirmPassword"></label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-floating">
+                <input asp-for="Input.FirstName" class="form-control" />
+                <label asp-for="Input.FirstName"></label>
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-floating">
+                <input asp-for="Input.LastName" class="form-control" />
+                <label asp-for="Input.LastName"></label>
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-floating">
+                <input asp-for="Input.NomeClienteRazaoSocial" class="form-control" />
+                <label asp-for="Input.NomeClienteRazaoSocial"></label>
+                <span asp-validation-for="Input.NomeClienteRazaoSocial" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-floating">
+                <input asp-for="Input.Telefone" class="form-control" />
+                <label asp-for="Input.Telefone"></label>
+                <span asp-validation-for="Input.Telefone" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-floating" hidden>
+        <input asp-for="Input.DataCadastro" class="form-control" />
+        <label asp-for="Input.DataCadastro"></label>
+        <span asp-validation-for="Input.DataCadastro" class="text-danger"></span>
+    </div>
+    <div class="form-floating">
+        <select asp-for="Input.TipoPessoa" class="form-control" asp-items="Html.GetEnumSelectList<TipoPessoa>()">
+            <option value="">-- Select Tipo Pessoa --</option>
+        </select>
+        <label asp-for="Input.TipoPessoa"></label>
+        <span asp-validation-for="Input.TipoPessoa" class="text-danger"></span>
+    </div>
+    <div class="form-floating">
+        <input asp-for="Input.CPFCNPJ" class="form-control" />
+        <label asp-for="Input.CPFCNPJ"></label>
+        <span asp-validation-for="Input.CPFCNPJ" class="text-danger"></span>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-floating">
+                <input id="InscricaoEstadualInput" asp-for="Input.InscricaoEstadual" class="form-control" />
+                <label asp-for="Input.InscricaoEstadual"></label>
+                <span asp-validation-for="Input.InscricaoEstadual" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-6">
+            <label asp-for="Input.Isento"></label>
+            <select asp-for="Input.Isento" asp-items="Html.GetEnumSelectList<Isento>()">
+                <option value="">Select...</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="form-floating">
+                <select asp-for="Input.Genero" class="form-control" asp-items="Html.GetEnumSelectList<Genero>()">
+                    <option value="">-- Select Genero --</option>
+                </select>
+                <label asp-for="Input.Genero"></label>
+                <span asp-validation-for="Input.Genero" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-floating" onshow=case genero is "outro">
+                <input asp-for="Input.Genero" class="form-control"  />
+                <label asp-for="Input.Genero"></label>
+                <span asp-validation-for="Input.Genero" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="form-floating">
+        <input asp-for="Input.DataNascimento" class="form-control" />
+        <label asp-for="Input.DataNascimento"></label>
+        <span asp-validation-for="Input.DataNascimento" class="text-danger"></span>
+    </div>
+    <div class="form-floating" hidden>
+        <input asp-for="Input.Bloqueado" class="form-control" />
+        <label asp-for="Input.Bloqueado"></label>
+        <span asp-validation-for="Input.Bloqueado" class="text-danger"></span>
+    </div>
+    <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+</form>
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
