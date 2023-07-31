@@ -8,12 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using CadastroCliente.Data;
 using CadastroCliente.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Data.SqlClient;
 
 namespace CadastroCliente.Controllers
 {
     [Authorize]
-
     public class CompradoresController : Controller
     {
         private readonly CadastroClienteContext _context;
@@ -24,51 +22,23 @@ namespace CadastroCliente.Controllers
         }
 
         // GET: Compradores
-
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index()
         {
-
-
-            var compradores = _context.Comprador.AsQueryable();
-
-            // Apply filtering if searchString is provided
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                compradores = compradores.Where(c =>
-                    c.Nome.Contains(searchString) ||
-                    c.Email.Contains(searchString) ||
-                    c.Telefone.Contains(searchString)
-                // Add more attributes for filtering as needed
-                );
-            }
-
-            // Apply sorting based on sortOrder
-            switch (sortOrder)
-            {
-                case "Nome_desc":
-                    compradores = compradores.OrderByDescending(c => c.Nome);
-                    break;
-                case "Email":
-                    compradores = compradores.OrderBy(c => c.Email);
-                    break;
-                case "Email_desc":
-                    compradores = compradores.OrderByDescending(c => c.Email);
-                    break;
-                case "Telefone":
-                    compradores = compradores.OrderBy(c => c.Telefone);
-                    break;
-                case "Telefone_desc":
-                    compradores = compradores.OrderByDescending(c => c.Telefone);
-                    break;
-                // Add more cases for sorting other attributes as needed
-                default:
-                    compradores = compradores.OrderBy(c => c.Nome);
-                    break;
-            }
-
             return _context.Comprador != null ?
-                          View(await _context.Comprador.ToListAsync()) :
-                          Problem("Entity set 'CadastroClienteContext.Comprador'  is null.");
+                        View(await _context.Comprador.ToListAsync()) :
+                        Problem("Entity set 'CadastroClienteContext.Comprador'  is null.");
+        }
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult IsCpfUnique(string cpf)
+        {
+            var exists = _context.Comprador.Any(c => c.Cpf == cpf);
+            return Json(!exists);
+        }
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult IsEmailUnique(string email)
+        {
+            var exists = _context.Comprador.Any(c => c.Email == email);
+            return Json(!exists);
         }
 
         // GET: Compradores/Details/5
@@ -102,6 +72,7 @@ namespace CadastroCliente.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nome,Email,Cpf,Telefone,DataCadastro,ClienteBloqueado")] Comprador comprador)
         {
+            comprador.DataCadastro = DateTime.Now;
             if (ModelState.IsValid)
             {
                 _context.Add(comprador);
