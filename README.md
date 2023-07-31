@@ -20,7 +20,7 @@ Update-Package Pomelo.EntityFrameworkCore.MySql -Version 7.0.0
 
 Para Criação das tabelas Seguem comandos no Package Manager console:
 
-Add-Migration Initial -context CadastroClienteContext
+Add-Migration Initial -context CadastroClienteContext /n
 Add-Migration Users -context AppDbContext
 Update-Database  -context CadastroClienteContext
 Update-Database  -context AppDbContext
