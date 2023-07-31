@@ -8,7 +8,7 @@ ConnectionString:
   }
 }
 
-Pacoites necessários para o projeto, copiar e colar no Package Manager Console:
+Pacotes necessários para o projeto, copiar e colar no Package Manager Console:
 
 Update-Package Microsoft.AspNetCore.Identity.EntityFrameworkCore -Version 6.0.20
 Update-Package Microsoft.AspNetCore.Identity.UI -Version 6.0.20
