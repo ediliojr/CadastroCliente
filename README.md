@@ -8,7 +8,7 @@
   }
 }
 
-<h4>Pacotes necessários para o projeto, copiar e colar no Package Manager Console:</h4>
+<h4>Abra o CadastroCliente.sln, Pacotes necessários para o projeto, copiar e colar no Package Manager Console:</h4>
 
 Update-Package Microsoft.AspNetCore.Identity.EntityFrameworkCore -Version 6.0.20<br>
 Update-Package Microsoft.AspNetCore.Identity.UI -Version 6.0.20<br>
